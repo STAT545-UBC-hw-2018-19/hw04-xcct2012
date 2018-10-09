@@ -1,0 +1,126 @@
+---
+title: "STAT545_hw002"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+# Introduction
+
+In this assigment, I will be reshaping and merging the `gapminder` dataset through the following tasks:
+
+**Data reshaping**
+
+*Prompt II*
+
+Make a tibble with one row per year and columns for life expectancy for two or more countries.
+
+**Data joining**
+
+*Prompt I*
+
+Create a second dataframe looking at the country capitals and explore the join functions using this and the 'gapminder' dataframes.
+
+First, I will need to load the `gapminder` dataset and `tidyverse` package:
+```{r}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(gapminder))
+```
+# Data Reshaping
+*Prompt 2*
+Through this activity, I will reshape the data to show the yearly `lifeExp` for multiple countries. I have selected China, Canada, and Brazil as my countries.
+I will start by extracting the lifeExp for China:
+```{r}
+LifeExpChina=gapminder %>% 
+  filter(country=="China") %>% 
+  select(year, lifeExp)
+colnames(LifeExpChina) <- c("Year", "China")
+knitr::kable(LifeExpChina, format = "markdown")
+```
+I will then do the same for Canada:
+```{r}
+LifeExpCanada=gapminder %>% 
+  filter(country=="Canada") %>% 
+  select(year, lifeExp) 
+colnames(LifeExpCanada) <- c("Year", "Canada") 
+knitr::kable(LifeExpCanada, format = "markdown")
+```
+And the same for Brazil:
+```{r}
+LifeExpBrazil=gapminder %>% 
+  filter(country=="Brazil") %>% 
+  select(year, lifeExp) 
+colnames(LifeExpBrazil) <- c("Year", "Brazil")
+knitr::kable(LifeExpBrazil, format = "markdown")
+```
+I will then merge the three datasets using the `left-join` function. This will be done in two steps:
+```{r}
+LifeExpChinaCanada=left_join(LifeExpChina,LifeExpCanada, by="Year")
+LifeExpChinaCanadaBrazil=left_join(LifeExpChinaCanada,LifeExpBrazil,by="Year")
+knitr::kable(LifeExpChinaCanadaBrazil, format = "markdown")
+```
+
+# Join Prompts
+*Prompt I*
+In this activity, I will create a second data frame complimentary to `gapminder` and explore the various join functions.
+First, I will upload the `country_capitals.csv` data file, which contains the capitals of each country:
+```{r}
+count_capital <- read.csv("https://github.com/icyrockcom/country-capitals/raw/master/data/country-list.csv")
+ls(count_capital)
+nrow(count_capital) #number of rows in the count_capital dataset
+nrow(gapminder) #number of rows in the gapminder dataset
+
+```
+## Left join
+```{r}
+left_join(gapminder,count_capital, by="country")
+```
+## Right join
+```{r}
+right_join(gapminder,count_capital, by="country")
+
+```
+## Anti join
+```{r}
+anti_join(gapminder,count_capital, by="country")
+
+```
+## Semi join
+```{r}
+semi_join(gapminder,count_capital, by="country")
+
+```
+## Inner join
+```{r}
+inner_join(gapminder,count_capital, by="country")
+
+```
+## Full join
+```{r}
+full_join(gapminder,count_capital, by="country")
+
+```
+
+
