@@ -13,3 +13,9 @@ In this assigment, I will be reshaping and merging the `gapminder` dataset throu
 *Prompt II*
 
 Make a tibble with one row per year and columns for life expectancy for two or more countries.
+
+**Data joining**
+
+*Prompt I*
+
+Create a second dataframe looking at the country capitals and explore the join functions using this and the 'gapminder' dataframes.
