@@ -8,7 +8,7 @@ You can find links to the files in this repository here:
 
 hw004.Rmd: https://github.com/STAT545-UBC-students/hw04-xcct2012/blob/master/stat545/STAT545_participation/STAT545_hw004.Rmd
 
-hw004.html: 
+hw004.html: https://github.com/STAT545-UBC-students/hw04-xcct2012/blob/master/stat545/STAT545_participation/STAT545_hw004.html
 
 In this assigment, I will be reshaping and merging the `gapminder` dataset through the following tasks:
 
